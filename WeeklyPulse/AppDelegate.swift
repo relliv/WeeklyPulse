@@ -22,8 +22,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             mainWindow = NSWindow(
                 contentViewController: hostingController
             )
-            mainWindow?.title = "Main Window"
-            mainWindow?.setFrame(NSRect(x: 0, y: 0, width: 400, height: 300), display: true)
+            mainWindow?.title = "Weekly Pulse"
+            mainWindow?.setFrame(NSRect(x: 0, y: 0, width: 550, height: 550), display: true)
             mainWindow?.isReleasedWhenClosed = false
             mainWindow?.center()
         }
