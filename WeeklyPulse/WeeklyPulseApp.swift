@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct WeeklyPulseApp: App {
+   
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .frame(minWidth: 550, minHeight: 550)
+                .multilineTextAlignment(.center)
         }
+        .windowResizability(.contentSize)
     }
 }

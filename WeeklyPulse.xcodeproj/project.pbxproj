@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		30EFF4602C6AA42800408169 /* WeekNumberLibrary in Resources */ = {isa = PBXBuildFile; fileRef = 30EFF45D2C6AA42800408169 /* WeekNumberLibrary */; };
+		30EFF46E2C6AD5C100408169 /* WeekNumberLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 30EFF46D2C6AD5C100408169 /* WeekNumberLibrary */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		300C1FAE2C6AA20D0081BB6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +32,7 @@
 		300C1F9C2C6AA20C0081BB6F /* WeeklyPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeeklyPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		300C1FAD2C6AA20D0081BB6F /* WeeklyPulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeklyPulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		300C1FB72C6AA20D0081BB6F /* WeeklyPulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeklyPulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30EFF45D2C6AA42800408169 /* WeekNumberLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WeekNumberLibrary; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30EFF46E2C6AD5C100408169 /* WeekNumberLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +86,7 @@
 				300C1FB02C6AA20D0081BB6F /* WeeklyPulseTests */,
 				300C1FBA2C6AA20D0081BB6F /* WeeklyPulseUITests */,
 				300C1F9D2C6AA20C0081BB6F /* Products */,
+				30EFF45D2C6AA42800408169 /* WeekNumberLibrary */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +120,7 @@
 			);
 			name = WeeklyPulse;
 			packageProductDependencies = (
+				30EFF46D2C6AD5C100408169 /* WeekNumberLibrary */,
 			);
 			productName = WeeklyPulse;
 			productReference = 300C1F9C2C6AA20C0081BB6F /* WeeklyPulse.app */;
@@ -195,6 +204,9 @@
 			);
 			mainGroup = 300C1F932C6AA20C0081BB6F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				30EFF46C2C6ACF2A00408169 /* XCLocalSwiftPackageReference "WeeklyPulse/WeekNumberLibrary" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 300C1F9D2C6AA20C0081BB6F /* Products */;
 			projectDirPath = "";
@@ -212,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30EFF4602C6AA42800408169 /* WeekNumberLibrary in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +554,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		30EFF46C2C6ACF2A00408169 /* XCLocalSwiftPackageReference "WeeklyPulse/WeekNumberLibrary" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = WeeklyPulse/WeekNumberLibrary;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		30EFF46D2C6AD5C100408169 /* WeekNumberLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WeekNumberLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 300C1F942C6AA20C0081BB6F /* Project object */;
 }
