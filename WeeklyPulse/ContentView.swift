@@ -1,21 +1,23 @@
-//
-//  ContentView.swift
-//  WeeklyPulse
-//
-//  Created by Eyüp Erdoğan on 12.08.2024.
-//
-
 import SwiftUI
+import WeekNumberLibrary
 
 struct ContentView: View {
+    private let calculator = WeekNumberCalculator()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        GeometryReader { geometry in
+            VStack {
+                Spacer()
+                
+                Text("Week Number: " + String(calculator.getWeekNumber(of: Date())))
+                    .font(.system(size: geometry.size.width * 0.1, weight: .bold, design: .default))
+                    .frame(width: geometry.size.width, height: geometry.size.height * 0.1)
+                
+                Spacer()
+            }
+            .padding()
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        .padding()
     }
 }
 
