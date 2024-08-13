@@ -5,13 +5,28 @@ import WeekNumberLibrary
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     var timer: Timer?
+
     private let calculator = WeekNumberCalculator()
+
+    // Reference to the main window
+    private var mainWindow: NSWindow?
 
     func applicationDidFinishLaunching(_: Notification) {
         setupStatusBar()
         setupTimer()
 
-        NSApplication.shared.windows.first?.delegate = self
+        // Create the main window but do not show it initially
+        if mainWindow == nil {
+            let contentView = ContentView()
+            let hostingController = NSHostingController(rootView: contentView)
+            mainWindow = NSWindow(
+                contentViewController: hostingController
+            )
+            mainWindow?.title = "Main Window"
+            mainWindow?.setFrame(NSRect(x: 0, y: 0, width: 400, height: 300), display: true)
+            mainWindow?.isReleasedWhenClosed = false
+            mainWindow?.center()
+        }
 
         NSApp.setActivationPolicy(.accessory)
         NSApp.activate(ignoringOtherApps: true)
@@ -21,13 +36,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem.button {
-            button.title = getWeekNumberString()
-            button.action = #selector(statusBarButtonClicked)
+            // Create a SwiftUI view to represent the content
+            let contentView = StatusBarView(weekNumber: getWeekNumberString(), progress: calculator.getYearProgress())
+            let hostingView = NSHostingView(rootView: contentView)
 
-            let menu = NSMenu()
-            let quitItem = NSMenuItem(title: "Quit", action: #selector(quitApplication), keyEquivalent: "q")
-            menu.addItem(quitItem)
-            statusItem.menu = menu
+            // Adjust the frame size of the hosting view
+            hostingView.frame = NSRect(x: 0, y: 0, width: 100, height: 30)
+
+            // Ensure that the hosting view is properly added and displayed
+            button.addSubview(hostingView)
+            button.frame = hostingView.frame // Set the button frame to match the hosting view
+
+            // Set up action to open the main window when the button is clicked
+            button.action = #selector(statusBarButtonClicked)
+            button.target = self
         }
     }
 
@@ -40,8 +62,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func updateWeekNumber() {
-        if let button = statusItem.button {
-            button.title = getWeekNumberString()
+        if let button = statusItem.button, let hostingView = button.subviews.first as? NSHostingView<StatusBarView> {
+            let progress = calculator.getYearProgress()
+            hostingView.rootView = StatusBarView(weekNumber: getWeekNumberString(), progress: progress)
         }
     }
 
@@ -50,7 +73,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return "Week \(weekNumber)"
     }
 
-    @objc func statusBarButtonClicked() {}
+    @objc func statusBarButtonClicked() {
+        // Show the main window when the button is clicked
+        if let mainWindow = mainWindow {
+            if mainWindow.isVisible {
+                mainWindow.orderFront(self)
+            } else {
+                mainWindow.makeKeyAndOrderFront(self)
+            }
+        }
+    }
 
     @objc func quitApplication() {
         NSApp.terminate(self)
@@ -60,5 +92,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSWindowDelegate {
     func windowWillClose(_: Notification) {
         NSApp.hide(self)
+    }
+}
+
+// SwiftUI view for status bar item
+struct StatusBarView: View {
+    let weekNumber: String
+    let progress: Double
+
+    var body: some View {
+        VStack {
+            Text(weekNumber)
+                .font(.system(size: 12, weight: .medium))
+            ProgressBar(value: progress)
+                .frame(width: 37.5, height: 2.5)
+                .padding(.top, 2)
+        }
+    }
+}
+
+// Custom ProgressBar
+struct ProgressBar: View {
+    var value: Double
+
+    var body: some View {
+        ZStack(alignment: .leading) {
+            Rectangle()
+                .frame(width: 37.5, height: 2.5)
+                .foregroundColor(Color.gray.opacity(0.3))
+                .cornerRadius(1.25)
+            Rectangle()
+                .frame(width: CGFloat(value) * 37.5, height: 2.5)
+                .foregroundColor(.blue)
+                .cornerRadius(1.25)
+        }
     }
 }
