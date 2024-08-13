@@ -8,7 +8,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let calculator = WeekNumberCalculator()
 
-    // Reference to the main window
     private var mainWindow: NSWindow?
 
     func applicationDidFinishLaunching(_: Notification) {
@@ -19,9 +18,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if mainWindow == nil {
             let contentView = ContentView()
             let hostingController = NSHostingController(rootView: contentView)
+
             mainWindow = NSWindow(
                 contentViewController: hostingController
             )
+
             mainWindow?.title = "Weekly Pulse"
             mainWindow?.setFrame(NSRect(x: 0, y: 0, width: 550, height: 550), display: true)
             mainWindow?.isReleasedWhenClosed = false
@@ -64,12 +65,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func updateWeekNumber() {
         if let button = statusItem.button, let hostingView = button.subviews.first as? NSHostingView<StatusBarView> {
             let progress = calculator.getYearProgress()
+
             hostingView.rootView = StatusBarView(weekNumber: getWeekNumberString(), progress: progress)
         }
     }
 
     func getWeekNumberString() -> String {
         let weekNumber = calculator.getWeekNumber(of: Date())
+
         return "Week \(weekNumber)"
     }
 
