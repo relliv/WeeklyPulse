@@ -27,12 +27,22 @@ struct ContentView: View {
                 }
                 .padding()
 
-                Button("OK") {
-                    NSApp.hide(nil)
+                ZStack(alignment: .leading) {
+                    // TODO: fix visibility issue
+                    Button("OK") {
+                        NSApp.hide(nil)
+                    }
+                    .font(.system(size: geometry.size.width * 0.05, weight: .bold, design: .default))
+                    .frame(width: geometry.size.width * 2, height: geometry.size.height * 0.3)
+
+                    Spacer()
+
+                    Button("Quit") {
+                        NSApp.terminate(nil)
+                    }
+                    .font(.system(size: geometry.size.width * 0.05, weight: .bold, design: .default))
+                    .frame(width: geometry.size.width * 2, height: geometry.size.height * 0.3)
                 }
-                .padding(20)
-                .font(.system(size: geometry.size.width * 0.05, weight: .bold, design: .default))
-                .frame(width: geometry.size.width * 2, height: geometry.size.height * 0.3)
             }
             .padding()
             .frame(width: geometry.size.width, height: geometry.size.height)
