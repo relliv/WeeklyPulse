@@ -18,8 +18,8 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     ProgressView(value: calculator.getYearProgress(), total: 1.0)
                         .progressViewStyle(LinearProgressViewStyle(tint: .blue))
-                        .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.1) // Increased height for thicker progress bar
-                        .padding(.bottom, 5) // Add padding if needed for spacing
+                        .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.1)
+                        .padding(.bottom, 5)
 
                     Text(String(format: "%.1f%% (%d)", calculator.getYearProgress() * 100, Calendar.current.component(.year, from: Date())))
                         .font(.system(size: geometry.size.width * 0.05, weight: .bold))
@@ -27,24 +27,26 @@ struct ContentView: View {
                 }
                 .padding()
 
-                ZStack(alignment: .leading) {
-                    // TODO: fix visibility issue
-                    Button("OK") {
-                        NSApp.hide(nil)
+                GeometryReader { geometry in
+                    HStack(alignment: .center, spacing: 5) {
+                        Button("OK") {
+                            NSApp.hide(nil)
+                        }
+                        .font(.system(size: geometry.size.width * 0.04, weight: .bold, design: .default))
+                        .frame(width: geometry.size.width * 0.2, height: geometry.size.height * 0.2)
+                        
+                        Button("Quit") {
+                            NSApp.terminate(nil)
+                        }
+                        .font(.system(size: geometry.size.width * 0.04, weight: .bold, design: .default))
+                        .frame(width: geometry.size.width * 0.2, height: geometry.size.height * 0.2)
                     }
-                    .font(.system(size: geometry.size.width * 0.05, weight: .bold, design: .default))
-                    .frame(width: geometry.size.width * 2, height: geometry.size.height * 0.3)
-
-                    Spacer()
-
-                    Button("Quit") {
-                        NSApp.terminate(nil)
-                    }
-                    .font(.system(size: geometry.size.width * 0.05, weight: .bold, design: .default))
-                    .frame(width: geometry.size.width * 2, height: geometry.size.height * 0.3)
+                    .frame(maxWidth: .infinity, maxHeight: geometry.size.height * 0.2)
                 }
             }
-            .padding()
+            .padding(
+                100
+            )
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
